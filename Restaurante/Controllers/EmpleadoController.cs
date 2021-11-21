@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
+using Npgsql;
 using Restaurante.Models;
 
 namespace Restaurante.Controllers
@@ -38,11 +38,11 @@ namespace Restaurante.Controllers
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("TestAppCon");
-            MySqlDataReader myReader;
-            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            NpgsqlDataReader myReader;
+            using (NpgsqlConnection mycon = new NpgsqlConnection(sqlDataSource))
             {
                 mycon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -66,11 +66,11 @@ namespace Restaurante.Controllers
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("TestAppCon");
-            MySqlDataReader myReader;
-            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            NpgsqlDataReader myReader;
+            using (NpgsqlConnection mycon = new NpgsqlConnection(sqlDataSource))
             {
                 mycon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
                     myCommand.Parameters.AddWithValue("@EmpleadoIdempleado", id);
 
@@ -103,14 +103,14 @@ namespace Restaurante.Controllers
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("TestAppCon");
-            MySqlDataReader myReader;
-            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            NpgsqlDataReader myReader;
+            using (NpgsqlConnection mycon = new NpgsqlConnection(sqlDataSource))
             {
                 mycon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
                     myCommand.Parameters.AddWithValue("@EmpleadoId", emp.Idempleado);
-                    myCommand.Parameters.AddWithValue("@EmpleadoNombre", emp.nombre);
+                    myCommand.Parameters.AddWithValue("@EmpleadoNombre", emp.Nombre);
                     myCommand.Parameters.AddWithValue("@EmpleadoDescripcion", emp.Descripcion);
                     myCommand.Parameters.AddWithValue("@EmpleadoIdRestaurante", emp.IdRestaurante);
                     myCommand.Parameters.AddWithValue("@EmpleadoImagen", emp.Imagen);
@@ -140,11 +140,11 @@ namespace Restaurante.Controllers
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("TestAppCon");
-            MySqlDataReader myReader;
-            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            NpgsqlDataReader myReader;
+            using (NpgsqlConnection mycon = new NpgsqlConnection(sqlDataSource))
             {
                 mycon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
                     myCommand.Parameters.AddWithValue("@EmpleadoNombre", emp.Nombre);
                     myCommand.Parameters.AddWithValue("@EmpleadoDescripcion", emp.Descripcion);
