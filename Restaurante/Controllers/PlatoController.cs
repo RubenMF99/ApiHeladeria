@@ -59,7 +59,7 @@ namespace Restaurante.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                        delete from empleado 
+                        delete from plato
                         where Idplato=@Idplato;
                         
             ";
@@ -92,7 +92,7 @@ namespace Restaurante.Controllers
         public JsonResult Put(Plato emp)
         {
             string query = @"
-                        update empleado set 
+                        update plato set 
                         Idplato =@Idplato,
                         Nombre =@Nombre,
                         Descripcion =@Descripcion,  
@@ -114,8 +114,8 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Nombre", emp.Nombre);
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
                     myCommand.Parameters.AddWithValue("@Precio", emp.Precio);
-                    myCommand.Parameters.AddWithValue("@EmpleadoImagen", emp.Imagen);
-                    myCommand.Parameters.AddWithValue("@EmpleadoIdRestaurante", emp.IdRestaurante);
+                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
+                    myCommand.Parameters.AddWithValue("@IdRestaurante", emp.IdRestaurante);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -133,7 +133,7 @@ namespace Restaurante.Controllers
         public JsonResult Post(Models.Plato emp)
         {
             string query = @"
-                        insert into empleado 
+                        insert into plato 
                         (Idplato Nombre,Descripcion,Imagen,Precio,IdRestaurante) 
                         values
                          (@Idplato,@Nombre,@Descripcion,@Imagen,@Precio,@IdRestaurante);
@@ -152,8 +152,8 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Nombre", emp.Nombre);
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
                     myCommand.Parameters.AddWithValue("@Precio", emp.Precio);
-                    myCommand.Parameters.AddWithValue("@EmpleadoImagen", emp.Imagen);
-                    myCommand.Parameters.AddWithValue("@EmpleadoIdRestaurante", emp.IdRestaurante);
+                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
+                    myCommand.Parameters.AddWithValue("@Restaurante", emp.IdRestaurante);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

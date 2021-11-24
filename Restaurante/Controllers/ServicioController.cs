@@ -92,7 +92,7 @@ namespace Restaurante.Controllers
         public JsonResult Put(Servicio emp)
         {
             string query = @"
-                        update empleado set 
+                        update servicio set 
                         IdServicio=@IdServicio,
                         Nombre =@EmpleadoNombre,
                         Descripcion =@EmpleadoDescripcion,
