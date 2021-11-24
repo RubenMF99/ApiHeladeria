@@ -60,7 +60,7 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         delete from comentario 
-                        where IdComentario=@sIdComentario;
+                        where IdComentario=@IdComentario;
                         
             ";
 
@@ -72,7 +72,7 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@sIdComentario", id);
+                    myCommand.Parameters.AddWithValue("@IdComentario", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -95,7 +95,7 @@ namespace Restaurante.Controllers
                         insert into comentario
                         (IdComentario,Comentario,Cedula) 
                         values
-                         (@sIdComentario, @sComentario,@sCedula); 
+                         (@IdComentario,@Comentario,@Cedula); 
             ";
 
             DataTable table = new DataTable();
@@ -106,9 +106,9 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@sIdComentario", emp.IdComentario);
-                    myCommand.Parameters.AddWithValue("@sComentario", emp.Comentario);
-                    myCommand.Parameters.AddWithValue("@sCedula", emp.Cedula);
+                    myCommand.Parameters.AddWithValue("@IdComentario", emp.IdComentario);
+                    myCommand.Parameters.AddWithValue("@Comentario", emp.Comentario);
+                    myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

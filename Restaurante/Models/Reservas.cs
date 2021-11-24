@@ -5,7 +5,7 @@ namespace Restaurante.Models
     {
         public int Idreserva { get; set; }
         public int IdServicio { get; set; }
-        public string Fecha { get; set; }
-        public string Cedula { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Cedula { get; set; }
     }
 }
