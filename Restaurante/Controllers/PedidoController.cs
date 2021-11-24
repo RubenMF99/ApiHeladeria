@@ -31,7 +31,7 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select IdPedido,Cedula,IdPlato,Fecha
+                        select IdPedido,Cedula,Idplato,Fecha
                         from 
                         pedido
             ";
@@ -93,10 +93,10 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         update pedido set 
-                        IdPedido =@IdPedido,
+                        Idplato =@Idplato,
                         Cedula = @Cedula,
-                        Fecha=@Fecha,
-                        where IdPlato =@IdPlato;
+                        Fecha =@Fecha,
+                        where IdPedido=@IdPedido;
                         
             ";
 
@@ -110,7 +110,7 @@ namespace Restaurante.Controllers
                 {
                     myCommand.Parameters.AddWithValue("@IdPedido", emp.IdPedido);
                     myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
-                    myCommand.Parameters.AddWithValue("@IdPlato", emp.IdPlato);
+                    myCommand.Parameters.AddWithValue("@Idplato", emp.Idplato);
                     myCommand.Parameters.AddWithValue("@Fecha", emp.Fecha);
 
                     myReader = myCommand.ExecuteReader();
@@ -130,9 +130,9 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         insert into pedido 
-                        (IdPedido,Cedula,IdPlato,Fecha) 
+                        (IdPedido,Cedula,Idplato,Fecha) 
                         values
-                         (@IdPedido,@Cedula,@IdPlato,@Fecha);
+                         (@IdPedido,@Cedula,@Idplato,@Fecha);
                         
             ";
 
@@ -146,7 +146,7 @@ namespace Restaurante.Controllers
                 {
                     myCommand.Parameters.AddWithValue("@IdPedido", emp.IdPedido);
                     myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
-                    myCommand.Parameters.AddWithValue("@IdPlato", emp.IdPlato);
+                    myCommand.Parameters.AddWithValue("@Idplato", emp.Idplato);
                     myCommand.Parameters.AddWithValue("@Fecha", emp.Fecha);
 
                     myReader = myCommand.ExecuteReader();

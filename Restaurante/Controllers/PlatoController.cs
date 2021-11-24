@@ -134,7 +134,7 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         insert into plato 
-                        (Idplato Nombre,Descripcion,Imagen,Precio,IdRestaurante) 
+                        (Idplato, Nombre,Descripcion,Imagen,Precio,IdRestaurante) 
                         values
                          (@Idplato,@Nombre,@Descripcion,@Imagen,@Precio,@IdRestaurante);
                         
@@ -153,7 +153,7 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
                     myCommand.Parameters.AddWithValue("@Precio", emp.Precio);
                     myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
-                    myCommand.Parameters.AddWithValue("@Restaurante", emp.IdRestaurante);
+                    myCommand.Parameters.AddWithValue("@IdRestaurante", emp.IdRestaurante);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
