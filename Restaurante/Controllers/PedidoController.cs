@@ -59,7 +59,7 @@ namespace Restaurante.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                        delete from empleado 
+                        delete from pedido 
                         where IdPedido=@IdPedido;
                         
             ";
@@ -129,7 +129,7 @@ namespace Restaurante.Controllers
         public JsonResult Post(Models.Pedido emp)
         {
             string query = @"
-                        insert into empleado 
+                        insert into pedido 
                         (IdPedido,Cedula,IdPlato,Fecha) 
                         values
                          (@IdPedido,@Cedula,@IdPlato,@Fecha);

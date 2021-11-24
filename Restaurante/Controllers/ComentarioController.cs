@@ -31,7 +31,7 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select Idcomentario,Comentario,Cedula
+                        select IdComentario,Comentario,Cedula
                         from 
                         comentario
             ";
@@ -60,7 +60,7 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         delete from comentario 
-                        where Idcomentario=@Idcomentario;
+                        where IdComentario=@sIdComentario;
                         
             ";
 
@@ -72,7 +72,7 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idcomentario", id);
+                    myCommand.Parameters.AddWithValue("@sIdComentario", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -89,13 +89,13 @@ namespace Restaurante.Controllers
         //CREACIÓN
 
         [HttpPost]
-        public JsonResult Post(Models.Comentario emp)
+        public JsonResult Post(Models.Comentarios emp)
         {
             string query = @"
                         insert into comentario
-                        (Idcomentarios,Comentarios,Cedula) 
+                        (IdComentario,Comentario,Cedula) 
                         values
-                         (@Idcomentarios, @Comentarios,@Cedula); 
+                         (@sIdComentario, @sComentario,@sCedula); 
             ";
 
             DataTable table = new DataTable();
@@ -106,9 +106,9 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idcomentario", emp.Idcomentario);
-                    myCommand.Parameters.AddWithValue("@Comentarios", emp.Comentarios);
-                    myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
+                    myCommand.Parameters.AddWithValue("@sIdComentario", emp.IdComentario);
+                    myCommand.Parameters.AddWithValue("@sComentario", emp.Comentario);
+                    myCommand.Parameters.AddWithValue("@sCedula", emp.Cedula);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
