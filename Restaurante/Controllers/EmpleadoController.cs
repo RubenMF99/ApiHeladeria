@@ -88,7 +88,7 @@ namespace Restaurante.Controllers
         //ACTUALIZACIÓN
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public JsonResult Put(Empleado emp)
         {
             string query = @"
@@ -96,8 +96,8 @@ namespace Restaurante.Controllers
                         Nombre =@EmpleadoNombre,
                         Descripcion =@EmpleadoDescripcion,  
                         IdRestaurante =@EmpleadoIdRestaurante,
-                        Imagen = @EmpleadoImagen,
-                        where Idempleado =@EmpleadoIdIdempleado;
+                        Imagen = @EmpleadoImagen
+                        where Idempleado =@EmpleadoId;
                         
             ";
 

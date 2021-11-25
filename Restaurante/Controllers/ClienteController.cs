@@ -87,18 +87,18 @@ namespace Restaurante.Controllers
         //ACTUALIZACIÓN
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public JsonResult Put(Cliente emp)
         {
             string query = @"
-                        update cliente set 
-                        Cedula =@Cedula,
-                        Nombre =@Nombre,
-                        Descripcion =@Descripcion,  
-                        Telefono =@Telefono,
-                        Usuario = @Usuario,
-                        where Contraseña =@Contraseña;
-                        
+                        update cliente set
+                        Nombre = @Nombre,
+                        Descripcion = @Descripcion,  
+                        Telefono = @Telefono,
+                        Usuario =  @Usuario,
+                        Contraseña = @Contraseña
+                        where Cedula = @Cedula;
+
             ";
 
             DataTable table = new DataTable();

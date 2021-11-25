@@ -88,17 +88,17 @@ namespace Restaurante.Controllers
         //ACTUALIZACIÓN
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public JsonResult Put(Plato emp)
         {
             string query = @"
                         update plato set 
-                        Idplato =@Idplato,
                         Nombre =@Nombre,
                         Descripcion =@Descripcion,  
                         Imagen = @Imagen,
                         Precio = @Precio,
-                        where IdRestaurante =@IdRestaurante;
+                        IdRestaurante =@IdRestaurante
+                        where Idplato =@Idplato;
                         
             ";
 
