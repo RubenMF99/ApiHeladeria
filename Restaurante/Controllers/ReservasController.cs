@@ -88,15 +88,15 @@ namespace Restaurante.Controllers
         //ACTUALIZACIÓN
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public JsonResult Put(Reservas emp)
         {
             string query = @"
                         update reserva set 
-                        Idreserva =@Idreserva,
                         IdServicio =@IdServicio,  
                         Fecha =@Fecha,
-                        where Cedula =@Cedula;
+                        Cedula =@Cedula
+                        where Idreserva =@Idreserva;
                         
             ";
 
