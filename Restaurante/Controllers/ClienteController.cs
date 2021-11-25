@@ -31,7 +31,7 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select Cedula,Nombre,Descripcion,Telefono,Usuario, Contraseña
+                        select Cedula,Nombre,Descripcion,Telefono,Usuario, Password
                         from 
                         cliente
             ";
@@ -96,7 +96,7 @@ namespace Restaurante.Controllers
                         Descripcion = @Descripcion,  
                         Telefono = @Telefono,
                         Usuario =  @Usuario,
-                        Contraseña = @Contraseña
+                        Password = @Password
                         where Cedula = @Cedula;
 
             ";
@@ -114,7 +114,7 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
                     myCommand.Parameters.AddWithValue("@Telefono", emp.Telefono);
                     myCommand.Parameters.AddWithValue("@Usuario", emp.Usuario);
-                    myCommand.Parameters.AddWithValue("@Contraseña", emp.Contraseña);
+                    myCommand.Parameters.AddWithValue("@Password", emp.Password);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -133,9 +133,9 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         insert into cliente 
-                        (Cedula,Nombre,Descripcion,Telefono, Usuario, Contraseña) 
+                        (Cedula,Nombre,Descripcion,Telefono, Usuario, Password) 
                         values
-                         (@Cedula,@Nombre,@Descripcion,@Telefono,@Usuario,@Contraseña);
+                         (@Cedula,@Nombre,@Descripcion,@Telefono,@Usuario,@Password);
                         
             ";
 
@@ -153,7 +153,7 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
                     myCommand.Parameters.AddWithValue("@Telefono", emp.Telefono);
                     myCommand.Parameters.AddWithValue("@Usuario", emp.Usuario);
-                    myCommand.Parameters.AddWithValue("@Contraseña", emp.Contraseña);
+                    myCommand.Parameters.AddWithValue("@Password", emp.Password);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
