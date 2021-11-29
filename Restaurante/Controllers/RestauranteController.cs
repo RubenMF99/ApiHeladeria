@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,14 +12,14 @@ using Restaurante.Models;
 
 namespace Restaurante.Controllers
 {
-    //  api/reservas
+    //  api/restaurante
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservasController : ControllerBase
+    public class RestauranteController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
-        public ReservasController(IConfiguration configuration, IWebHostEnvironment env)
+        public RestauranteController(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
             _env = env;
@@ -31,9 +31,9 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select idreserva, nombre,telefono,email,numper,nombreser,fecha,hora,indicaciones,imagen from cliente 
-                        INNER JOIN reserva  ON cliente.cedula = reserva.cedula  
-                        INNER JOIN servicio ON reserva.idservicio = servicio.idservicio
+                        select IdRestaurante,Descripcion
+                        from 
+                        restaurante
             ";
 
             DataTable table = new DataTable();
@@ -59,8 +59,9 @@ namespace Restaurante.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                        delete from reserva
-                        where Idreserva=@Idreserva;    
+                        delete from restaurante 
+                        where IdRestaurante=@IdRestaurante;
+                        
             ";
 
             DataTable table = new DataTable();
@@ -71,7 +72,7 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idreserva", id);
+                    myCommand.Parameters.AddWithValue("@IdRestaurante", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -84,22 +85,16 @@ namespace Restaurante.Controllers
             return new JsonResult("Deleted Successfully");
         }
 
-        //ACTUALIZACIÓN
+        //ACTUALIZACIÃ“N
 
 
         [HttpPut("{id}")]
-        public JsonResult Put(Reservas emp)
+        public JsonResult Put(Restaurantep emp)
         {
             string query = @"
-                        update reserva set 
-                        Idservicio =@Idservicio, 
-                        Cedula =@Cedula
-                        Email = @Email,
-                        Numper = @Numper,
-                        Fecha =@Fecha,
-                        Hora = @Hora,
-                        Indicaciones = @Indicaciones
-                        where Idreserva =@Idreserva;
+                        update restaurante set 
+                        Descripcion =@Descripcion
+                        where IdRestaurante =@IdRestaurante;
                         
             ";
 
@@ -111,14 +106,8 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idreserva", emp.Idreserva);
-                    myCommand.Parameters.AddWithValue("@Idservicio", emp.Idservicio);
-                    myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
-                    myCommand.Parameters.AddWithValue("@Email", emp.Email);
-                    myCommand.Parameters.AddWithValue("@Numper", emp.Numper);
-                    myCommand.Parameters.AddWithValue("@Fecha", emp.Fecha);
-                    myCommand.Parameters.AddWithValue("@Hora", emp.Hora);
-                    myCommand.Parameters.AddWithValue("@Indicaciones", emp.Indicaciones);
+                    myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
+                    myCommand.Parameters.AddWithValue("@IdRestaurante", emp.IdRestaurante);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -130,15 +119,16 @@ namespace Restaurante.Controllers
 
             return new JsonResult("Updated Successfully");
         }
-        //CREACIÓN
+        //CREACIÃ“N
 
         [HttpPost]
-        public JsonResult Post(Models.Reservas emp)
+        public JsonResult Post(Models.Restaurantep emp)
         {
             string query = @"
-                        insert into reserva
+                        insert into restaurante 
+                        (Descripcion,IdRestaurante) 
                         values
-                         (@Idreserva,@Idservicio,@Cedula,@Email,@Numper,@Fecha,@Hora,@Indicaciones);
+                         (@Descripcion,@IdRestaurante);
                         
             ";
 
@@ -150,15 +140,8 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idreserva", emp.Idreserva);
-                    myCommand.Parameters.AddWithValue("@Idservicio", emp.Idservicio);
-                    myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
-                    myCommand.Parameters.AddWithValue("@Email", emp.Email);
-                    myCommand.Parameters.AddWithValue("@Numper", emp.Numper);
-                    myCommand.Parameters.AddWithValue("@Fecha", emp.Fecha);
-                    myCommand.Parameters.AddWithValue("@Hora", emp.Hora);
-                    myCommand.Parameters.AddWithValue("@Indicaciones", emp.Indicaciones);
-
+                    myCommand.Parameters.AddWithValue("@EmpleadoDescripcion", emp.Descripcion);
+                    myCommand.Parameters.AddWithValue("@EmpleadoIdRestaurante", emp.IdRestaurante);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

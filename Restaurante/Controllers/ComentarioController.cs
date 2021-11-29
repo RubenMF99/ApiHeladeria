@@ -31,9 +31,9 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select IdComentario,Comentario,Cedula
+                        select IdComentario,Comentario,Cedula,Nombre,Imagen
                         from 
-                        comentario
+                        comentario INNER JOIN cliente USING(Cedula)
             ";
 
             DataTable table = new DataTable();
