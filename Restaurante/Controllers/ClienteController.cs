@@ -31,7 +31,7 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select Cedula,Nombre,Descripcion,Telefono,Usuario, Password
+                        select Cedula,Nombre,Descripcion,Telefono,Usuario, Password,Imagen
                         from 
                         cliente
             ";
@@ -97,6 +97,7 @@ namespace Restaurante.Controllers
                         Telefono = @Telefono,
                         Usuario =  @Usuario,
                         Password = @Password
+                        Imagen = @Imagen
                         where Cedula = @Cedula;
 
             ";
@@ -115,7 +116,7 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Telefono", emp.Telefono);
                     myCommand.Parameters.AddWithValue("@Usuario", emp.Usuario);
                     myCommand.Parameters.AddWithValue("@Password", emp.Password);
-
+                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 
@@ -133,9 +134,9 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         insert into cliente 
-                        (Cedula,Nombre,Descripcion,Telefono, Usuario, Password) 
+                        (Cedula,Nombre,Descripcion,Telefono, Usuario, Password,Imagen) 
                         values
-                         (@Cedula,@Nombre,@Descripcion,@Telefono,@Usuario,@Password);
+                         (@Cedula,@Nombre,@Descripcion,@Telefono,@Usuario,@Password,@Imagen);
                         
             ";
 
@@ -154,7 +155,7 @@ namespace Restaurante.Controllers
                     myCommand.Parameters.AddWithValue("@Telefono", emp.Telefono);
                     myCommand.Parameters.AddWithValue("@Usuario", emp.Usuario);
                     myCommand.Parameters.AddWithValue("@Password", emp.Password);
-
+                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 

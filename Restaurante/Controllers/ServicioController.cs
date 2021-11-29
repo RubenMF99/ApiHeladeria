@@ -31,7 +31,7 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select IdServicio,Nombre,Descripcion,Imagen
+                        select IdServicio,Nombreser,Descripcion,Imagenser
                         from 
                         servicio
             ";
@@ -93,9 +93,9 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         update servicio set 
-                        Nombre =@Nombre,
+                        Nombreser =@Nombreser,
                         Descripcion =@Descripcion,
-                        Imagen =@Imagen
+                        Imagenser =@Imagenser
                         where IdServicio=@IdServicio;
                         
             ";
@@ -109,9 +109,9 @@ namespace Restaurante.Controllers
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
                     myCommand.Parameters.AddWithValue("@IdServicio", emp.IdServicio);
-                    myCommand.Parameters.AddWithValue("@Nombre", emp.Nombre);
+                    myCommand.Parameters.AddWithValue("@Nombreser", emp.Nombreser);
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
-                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
+                    myCommand.Parameters.AddWithValue("@Imagenser", emp.Imagenser);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -130,9 +130,9 @@ namespace Restaurante.Controllers
         {
             string query = @"
                         insert into servicio
-                        (IdServicio,Nombre,Descripcion,Imagen) 
+                        (IdServicio,Nombreser,Descripcion,Imagenser) 
                         values
-                         (@IdServicio,@Nombre,@Descripcion,@Imagen);
+                         (@IdServicio,@Nombreser,@Descripcion,@Imagenser);
                         
             ";
 
@@ -145,9 +145,9 @@ namespace Restaurante.Controllers
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
                     myCommand.Parameters.AddWithValue("@IdServicio", emp.IdServicio);
-                    myCommand.Parameters.AddWithValue("@Nombre", emp.Nombre);
+                    myCommand.Parameters.AddWithValue("@Nombreser", emp.Nombreser);
                     myCommand.Parameters.AddWithValue("@Descripcion", emp.Descripcion);
-                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagen);
+                    myCommand.Parameters.AddWithValue("@Imagen", emp.Imagenser);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

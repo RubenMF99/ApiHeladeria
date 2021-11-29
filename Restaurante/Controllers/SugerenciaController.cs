@@ -12,14 +12,14 @@ using Restaurante.Models;
 
 namespace Restaurante.Controllers
 {
-    //  api/reservas
+    //  api/sugerencia
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservasController : ControllerBase
+    public class SugerenciaController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
-        public ReservasController(IConfiguration configuration, IWebHostEnvironment env)
+        public SugerenciaController(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
             _env = env;
@@ -31,9 +31,9 @@ namespace Restaurante.Controllers
         public JsonResult Get()
         {
             string query = @"
-                        select idreserva, nombre,telefono,email,numper,nombreser,fecha,hora,indicaciones,imagen from cliente 
-                        INNER JOIN reserva  ON cliente.cedula = reserva.cedula  
-                        INNER JOIN servicio ON reserva.idservicio = servicio.idservicio
+                        select Idsugerencia,Asunto,Nombre,Cedula,Email, Servicio, Sugerencia
+                        from 
+                        sugerencias INNER JOIN cliente USING(Cedula)
             ";
 
             DataTable table = new DataTable();
@@ -59,8 +59,8 @@ namespace Restaurante.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                        delete from reserva
-                        where Idreserva=@Idreserva;    
+                        delete from sugerencias
+                        where Idsugerencia=@Idsugerencia;
             ";
 
             DataTable table = new DataTable();
@@ -71,7 +71,7 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idreserva", id);
+                    myCommand.Parameters.AddWithValue("@Idsugerencia", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -88,19 +88,17 @@ namespace Restaurante.Controllers
 
 
         [HttpPut("{id}")]
-        public JsonResult Put(Reservas emp)
+        public JsonResult Put(Sugerencias emp)
         {
             string query = @"
-                        update reserva set 
-                        Idservicio =@Idservicio, 
-                        Cedula =@Cedula
+                        update sugerencias set
+                        Asunto = @Asunto,
+                        Cedula = @Cedula,  
                         Email = @Email,
-                        Numper = @Numper,
-                        Fecha =@Fecha,
-                        Hora = @Hora,
-                        Indicaciones = @Indicaciones
-                        where Idreserva =@Idreserva;
-                        
+                        Servicio=@Servicio,
+                        Sugerencia=@Sugerencia
+                        where Idsugerencia = @Idsugerencia;
+
             ";
 
             DataTable table = new DataTable();
@@ -111,15 +109,12 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idreserva", emp.Idreserva);
-                    myCommand.Parameters.AddWithValue("@Idservicio", emp.Idservicio);
+                    myCommand.Parameters.AddWithValue("@Idsugerencia", emp.Idsugerencia);
+                    myCommand.Parameters.AddWithValue("@Asunto", emp.Asunto);
                     myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
                     myCommand.Parameters.AddWithValue("@Email", emp.Email);
-                    myCommand.Parameters.AddWithValue("@Numper", emp.Numper);
-                    myCommand.Parameters.AddWithValue("@Fecha", emp.Fecha);
-                    myCommand.Parameters.AddWithValue("@Hora", emp.Hora);
-                    myCommand.Parameters.AddWithValue("@Indicaciones", emp.Indicaciones);
-
+                    myCommand.Parameters.AddWithValue("@Servicio", emp.Servicio);
+                    myCommand.Parameters.AddWithValue("@Sugerencia", emp.Sugerencia);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 
@@ -133,12 +128,13 @@ namespace Restaurante.Controllers
         //CREACIÓN
 
         [HttpPost]
-        public JsonResult Post(Models.Reservas emp)
+        public JsonResult Post(Models.Sugerencias emp)
         {
             string query = @"
-                        insert into reserva
+                        insert into sugerencias
+                        (Idsugerencia,Asunto,Cedula,Email,Servicio,Sugerencia) 
                         values
-                         (@Idreserva,@Idservicio,@Cedula,@Email,@Numper,@Fecha,@Hora,@Indicaciones);
+                         (@Idsugerencia,@Asunto,@Cedula,@Email,@Servicio,@Sugerencia);
                         
             ";
 
@@ -150,16 +146,13 @@ namespace Restaurante.Controllers
                 mycon.Open();
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@Idreserva", emp.Idreserva);
-                    myCommand.Parameters.AddWithValue("@Idservicio", emp.Idservicio);
+
+                    myCommand.Parameters.AddWithValue("@Idsugerencia", emp.Idsugerencia);
+                    myCommand.Parameters.AddWithValue("@Asunto", emp.Asunto);
                     myCommand.Parameters.AddWithValue("@Cedula", emp.Cedula);
                     myCommand.Parameters.AddWithValue("@Email", emp.Email);
-                    myCommand.Parameters.AddWithValue("@Numper", emp.Numper);
-                    myCommand.Parameters.AddWithValue("@Fecha", emp.Fecha);
-                    myCommand.Parameters.AddWithValue("@Hora", emp.Hora);
-                    myCommand.Parameters.AddWithValue("@Indicaciones", emp.Indicaciones);
-
-
+                    myCommand.Parameters.AddWithValue("@Servicio", emp.Servicio);
+                    myCommand.Parameters.AddWithValue("@Sugerencia", emp.Sugerencia);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 
